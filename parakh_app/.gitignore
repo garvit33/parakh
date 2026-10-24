@@ -1,0 +1,49 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.history
+.svn/
+migrate_working_dir/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code (uncomment if you want to ignore VS Code settings)
+# .vscode/
+
+# Flutter and Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+**/doc/api/
+
+# Flutter generated files
+**/Generated.xcconfig
+**/flutter_export_environment.sh
+
+# Android build outputs
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# iOS generated files
+/ios/Flutter/.last_build_id
+/ios/Flutter/ephemeral/
+
+# App symbols and obfuscation maps
+app.*.symbols
+app.*.map.json
+
+# Widget Preview
+.widget_preview/
