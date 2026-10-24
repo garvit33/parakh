@@ -24,6 +24,8 @@ class _SakhiAssistantScreenState extends State<SakhiAssistantScreen> {
   String? _fallbackAnswer;
   bool _isListening = false;
   bool _speechAvailable = false;
+  late final Future<void> _voiceReady;
+  int _speechRequest = 0;
 
   String _text(String english, String hindi) {
     return widget.isHindi ? hindi : english;
@@ -42,7 +44,7 @@ class _SakhiAssistantScreenState extends State<SakhiAssistantScreen> {
   @override
   void initState() {
     super.initState();
-    _configureVoice();
+    _voiceReady = _configureVoice();
   }
 
   Future<void> _configureVoice() async {
@@ -74,9 +76,38 @@ class _SakhiAssistantScreenState extends State<SakhiAssistantScreen> {
   }
 
   Future<void> _speak(String text) async {
-    await _tts.stop();
-    await _tts.setLanguage(widget.isHindi ? 'hi-IN' : 'en-IN');
-    await _tts.speak(text);
+    final request = ++_speechRequest;
+
+    try {
+      await _voiceReady;
+
+      if (!mounted || request != _speechRequest) return;
+
+      await _tts.stop();
+      await _tts.setLanguage(widget.isHindi ? 'hi-IN' : 'en-IN');
+      await _tts.awaitSpeakCompletion(true);
+
+      if (!mounted || request != _speechRequest) return;
+
+      final result = await _tts.speak(text);
+
+      if (result != 1 && mounted) {
+        throw StateError('Text-to-speech did not start.');
+      }
+    } catch (_) {
+      if (!mounted || request != _speechRequest) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            _text(
+              'Voice playback failed. Please check the installed voice and try again.',
+              'वाणी चलाने में समस्या हुई। कृपया इंस्टॉल की गई आवाज़ जाँचकर फिर प्रयास करें।',
+            ),
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> _toggleListening() async {
