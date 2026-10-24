@@ -50,6 +50,7 @@ class _SakhiAssistantScreenState extends State<SakhiAssistantScreen> {
     await _tts.setSpeechRate(0.45);
     await _tts.setPitch(1);
     await _tts.setVolume(1);
+    await _tts.awaitSpeakCompletion(true);
 
     final available = await _speech.initialize(
       onStatus: (status) {

@@ -579,21 +579,37 @@ bool _isEnhancingWithAi = false;
           ],
           const SizedBox(height: 10),
           Text(
-  recommendation.recommendationSource == 'firebase-ai-logic'
-      ? _text(
-          'Source: Firebase AI + offline safety rules • Not laboratory validated',
-          'स्रोत: Firebase AI + ऑफलाइन सुरक्षा नियम • प्रयोगशाला द्वारा सत्यापित नहीं',
-        )
-      : _text(
-          'Source: Offline rules • Not laboratory validated',
-          'स्रोत: ऑफलाइन नियम • प्रयोगशाला द्वारा सत्यापित नहीं',
-        ),
-  style: const TextStyle(
-    color: Color(0xFF7A847D),
-    fontSize: 10,
-    fontWeight: FontWeight.w600,
-  ),
-),
+            recommendation.recommendationSource == 'firebase-ai-logic'
+                ? _text(
+                    'Source: Firebase AI + offline safety rules • Not laboratory validated',
+                    'स्रोत: Firebase AI + ऑफलाइन सुरक्षा नियम • प्रयोगशाला द्वारा सत्यापित नहीं',
+                  )
+                : _text(
+                    'Source: Offline rules • Not laboratory validated',
+                    'स्रोत: ऑफलाइन नियम • प्रयोगशाला द्वारा सत्यापित नहीं',
+                  ),
+            style: const TextStyle(
+              color: Color(0xFF7A847D),
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          OutlinedButton.icon(
+            onPressed: _isEnhancingWithAi ? null : _enhanceRecommendationWithAi,
+            icon: _isEnhancingWithAi
+                ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.auto_awesome_rounded),
+            label: Text(
+              _isEnhancingWithAi
+                  ? _text('Enhancing...', 'बेहतर सुझाव तैयार हो रहे हैं...')
+                  : _text('Enhance with AI', 'AI से सुझाव बेहतर करें'),
+            ),
+          ),
             
         ],
       ),

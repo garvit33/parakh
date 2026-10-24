@@ -234,7 +234,8 @@ await preferences.setBool('animalProfileCompleted', true);
     );
 
     if (!mounted) return;
-await preferences.setBool('animalProfileCompleted', true);
+    await preferences.setBool('animalProfileCompleted', true);
+    if (!mounted) return;
     Navigator.of(context).pop(true);
   }
 
