@@ -1,0 +1,5 @@
+clean
+foreign_material
+mould
+sand_or_soil
+stones

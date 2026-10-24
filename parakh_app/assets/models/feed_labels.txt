@@ -1,0 +1,5 @@
+cattle_feed_pellets
+feed_mash
+green_fodder
+maize_silage
+wheat_straw
